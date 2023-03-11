@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block body %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+  <div class="container-fluid" bis_skin_checked="1">
+  <img class="navbar-brand" href="#" src={{asset("assets/images/logo.png")}} alt="" style="width: 100px;" /><span>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01" bis_skin_checked="1">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+    <style>
+        .posts{
+            border-radius: 10px;
+            box-shadow: 0 10px 16px rgba(0, 0, 0, .25);
+            margin-bottom: 30;
+            margin-top: 30px;
+            padding: 5px;
+            width: 45%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .article1{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .img1{
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-5 text-center">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for i in 1..5 %}
+        <section class="posts">
+            {# <div class="title">
+                <h1>Titre</h1>
+            </div>
+            <div class="metadat">
+                <span class="badge bg-secondary">New</span>
+                <span class="badge bg-secondary">Promotion</span>
+            </div> #}
+            
+           <img class="img2" src="{{asset('assets/images/userImage.png')}}" alt="" width="70px" style="display: inline-block; margin-top: 10px; margin-left: 20px;">
+           <div style="display: inline-block; margin-top: 10px; margin-left: 0px; font-weight: bold;">Mokhtar Hadded</div>
+           <img class="img2" src="{{asset('assets/images/basket.png')}}" alt="" width="50px" style="display: inline-block; margin-top: 10px; margin-left: 340px;">
+
+            <article class="article1"> 
+                <h2>Article 1</h2>
+                <div class="metadat">
+                    {# {{ post.createdAt | date('Y-m-d')}} at {{ post.createdAt | date('H:i') }} by
+                    {% if post.author %}
+                        {{ post.author.firstName }} #}
+                    Mokhtar Hadded Today at 12:00
+                    
+                    <span class="badge bg-success">7out</span>
+                </div>
+                <div class="content">
+                   
+                        <img class="img1" src="https://picsum.photos/seed/picsum/300/200" alt="" width="350px" class="mt-3 mb-3">
+                    <br>
+                    {# <a href="{{ path('post_show', {'id' : post.id}) }}">Read more</a> #}
+                </div> 
+                  <div style="font-weight:bold; margin-top: 6px;margin-left: auto; margin-right: auto;">150x60 cm</div>
+            </article>
+            <p style="font-weight:bold;margin-left:500px;">Prix: 50DT</p>
+
+        </section>
+    {% endfor %} 
+    {# <div class="navigation mt-5">
+        {{ knp_pagination_render(posts) }}
+    </div> #}
+
+
+
+
+{% endblock %}
