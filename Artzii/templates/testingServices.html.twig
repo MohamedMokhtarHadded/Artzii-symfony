@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for article in articles %}
+        <h1>{{ article.getnoma() }}</h1>
+    {% endfor %}
+{% endblock %}

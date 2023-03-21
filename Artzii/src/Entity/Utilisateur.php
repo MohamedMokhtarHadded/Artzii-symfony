@@ -62,21 +62,7 @@ class Utilisateur
      * @ORM\Column(name="adresse", type="string", length=20, nullable=false)
      */
     private $adresse;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Articles", inversedBy="idClient")
-     * @ORM\JoinTable(name="basket",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="id_client", referencedColumnName="idU")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="id_article", referencedColumnName="refA")
-     *   }
-     * )
-     */
-    private $idArticle = array();
+    
 
     /**
      * Constructor

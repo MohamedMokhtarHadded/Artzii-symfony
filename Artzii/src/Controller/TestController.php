@@ -11,11 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\User;
+use App\Entity\Basket;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use App\Repository\ArticlesRepository;
+use App\Repository\BasketRepository;
 
 class TestController extends AbstractController
 {
@@ -110,4 +114,70 @@ class TestController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    #[Route('/article/{id}', name: 'app_article2')]
+    public function show(int $id, ArticlesRepository $rep)
+    {
+        $article = $rep->get($id);
+
+         if (!$article) {
+             throw $this->createNotFoundException('Article not found');
+        }
+
+        return $this->render('testingServices.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    #[Route('/articleArtiste/{idArtiste}', name: 'app_articleArtiste')]
+    public function showArticlesArtiste(int $idArtiste, ArticlesRepository $rep)
+    {
+        
+        $articles = $rep->findBy(['idartiste' => $idArtiste]);
+        return $this->render('testingServices.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+
+    #[Route('/bask', name: 'app_bask')]
+    public function index2(): Response
+    {
+        // Create a new Basket entity
+        $basket = new Basket();
+        $basket->setIdClient(1);
+        $basket->setIdArticle(2);
+        $basket->setDateAjout(new \DateTime());
+
+        // Persist the entity to the database
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($basket);
+        $entityManager->flush();
+
+        // Return a response to indicate success
+        return new Response('Basket entity created successfully');
+    }
+
+    #[Route('/bask1', name: 'app_bask1')]
+    public function index3(): Response
+{
+    // Get all Basket entities from the database
+    $entityManager = $this->getDoctrine()->getManager();
+    $basketRepository = $entityManager->getRepository(Basket::class);
+    $baskets = $basketRepository->findAll();
+
+    // Do something with the entities
+    // For example, you could output them to the browser
+    $response = '';
+    foreach ($baskets as $basket) {
+        $response .= $basket->getIdClient() . ' - ' . $basket->getIdArticle() . ' - ' . $basket->getDateAjout()->format('Y-m-d H:i:s') . '<br>';
+    }
+
+    // Return a response to indicate success
+    return new Response($response);
+}
+
+
+
+
 }

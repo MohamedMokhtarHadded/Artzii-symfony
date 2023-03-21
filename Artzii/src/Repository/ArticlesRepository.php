@@ -39,6 +39,22 @@ class ArticlesRepository extends ServiceEntityRepository
         }
     }
 
+    public function get(int $id): ?Articles
+    {
+        $article = $this->find($id);
+        return $article;
+    }
+
+    // public function getArticles(int $id): array
+    // {
+    //     $qb = $this->createQueryBuilder('a')
+    //         ->where('a.idartiste = :id')
+    //         ->setParameter('id', $id)
+    //         ->getQuery();
+
+    //     return $qb->execute();
+    // }
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */

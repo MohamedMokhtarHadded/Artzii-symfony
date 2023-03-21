@@ -7,7 +7,7 @@
 {% block body %}
 
 
-	{# <section class="posts">
+	   {# <section class="posts">
 						            <article class="article1"> 
 						                <img class="img1" src={{asset("assets/images/emptyBasket.png")}} alt="" width="250px" class="mt-3 mb-3"> 
 						                <h4>Votre panier est vide!</h4>
@@ -25,13 +25,15 @@
 						<h4 class="card-title">Votre panier</h4>
 					</div>
 					<div class="card-body">
+          <div class="bonjour">  Bonjour, <span class="user"> Mohamed Mokhtar Hadded </span> </div>
+          <div class="reflet">  Votre panier est le reflet de votre style </div>
 
 						
 							<div class="row">
 								<div class="col-md-8">
 
-                                {% for variable in 0..1 %}
-									<section class="basket-item" style="position: relative;">
+                  {% for variable in 0..10 %}
+									<section class="basket-item" style="position: relative; transform: scale(0.95)">
 										<img src="{{asset('assets/images/trash.png')}}" alt="add to cart" width="45px" style="position: absolute; top: 0 ; right: 0; margin-top: 7px; margin-right: 7px;">
 
 
@@ -55,7 +57,7 @@
 
 													<div style="font-weight:bold; margin-top: 6px;font-size: 19px;">
 														165x13 cm</div>
-													<div style="font-weight:bold; color:black; margin-left:72%; font-size: 21px;">Prix: 65 DT</div>
+													<div style="font-weight:bold; color:black; margin-left:72%; font-size: 21px;">Prix : 65 DT</div>
 
 												</article>
 
@@ -70,7 +72,7 @@
 									<div class="vl"></div>
 
                                      <section class="tot-cost" style="position: absolute; top:0; left: 27px;">
-                                     
+                                      
                                      <article class="article1"> 
 						                <img class="img1" src={{asset("assets/images/imagePanier.png")}} alt="" width="180px" class="mt-3 mb-3"> 
 						                <h3 style="font-weight: bold;">Coût totale: 65 DT</h3>
@@ -80,8 +82,12 @@
                                         <h6 style="margin-top: -7px;">Bizerte</h6>
 
 						                <a href="{{ path('app_articles') }}" class="button-77">Commander</a>
+                             <div class="aide" style=" margin-top: 125%; position: absolute;">  Besoin d'aide ? </div>
+                             <div class="aaaaa" style=" margin-top: 134%; position: absolute;">  Notre processus de Commande est simple et efficace</div>
 						            </article>
                                     </section>
+
+                                   
 
 
 								</div>
@@ -125,9 +131,9 @@
         }
         .basket-item{
             border-radius: 10px;
-            box-shadow: 0 10px 16px rgba(0, 0, 0, .25);
-            margin-bottom: 30px;
-            margin-top: 10px;
+            box-shadow: 0 10px 16px rgba(0, 0, 0, .10);
+            margin-bottom: 0px;
+            margin-top: 5px;
             padding: 10px;
             padding-left: 32px;
             width: auto;
@@ -140,7 +146,6 @@
             border-radius: 10px;
             box-shadow: 0 10px 16px rgba(0, 0, 0, .25);
             margin-bottom: 30;
-            margin-top: 30px;
             padding: 35px;
             padding-top: 10px;
             width: 90%;
@@ -152,6 +157,8 @@
             margin-top: 40px;
             margin-left: 17px;
         }
+
+
 
 
         .article1{
@@ -170,6 +177,36 @@
             margin-bottom: auto;
             
         }
+        
+        .bonjour{
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: black;
+
+        }
+        .user{
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-color: black;
+            color: #FFA500;
+        }
+        .reflet{
+          font-size : 17px;
+          margin-top: -12px;
+          margin-left: 5px;
+        }
+        .aide{
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: black;
+            margin-left: 10px;
+            color: #FFA500;
+        }
+
+
 
 
 

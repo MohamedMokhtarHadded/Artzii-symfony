@@ -59,22 +59,7 @@ class Articles
      */
     private $imageUrl = '../resources/eruro.png';
 
-    /**
-     * @var \Categorie
-     *
-     * @ORM\ManyToOne(targetEntity="Categorie")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="catId", referencedColumnName="CatId")
-     * })
-     */
-    private $catid;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Utilisateur", mappedBy="idArticle")
-     */
-    private $idClient = array();
 
     /**
      * Constructor
