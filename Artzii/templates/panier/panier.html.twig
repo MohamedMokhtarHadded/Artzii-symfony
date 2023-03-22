@@ -32,15 +32,15 @@
 							<div class="row">
 								<div class="col-md-8">
 
-                  {% for variable in 0..10 %}
+                  {% for basketItem in basketData %}
 									<section class="basket-item" style="position: relative; transform: scale(0.95)">
-										<img src="{{asset('assets/images/trash.png')}}" alt="add to cart" width="45px" style="position: absolute; top: 0 ; right: 0; margin-top: 7px; margin-right: 7px;">
+										<img src="{{asset('assets/images/trash.png')}}"  alt="add to cart" width="45px" style="position: absolute; top: 0 ; right: 0; margin-top: 7px; margin-right: 7px;">
 
 
 										<div class="row">
 											<div class="col-md-5">
 												<div class="content">
-													<img class="img2" src="{{asset('assets/images/art4.png')}}" alt="" width="250px" class="mt-3 mb-3">
+													<img class="img2" src="{{asset(basketItem.idArticle.imageUrl)}}"  alt="" width="250px" class="mt-3 mb-3">
 												</div>
 											</div>
 
@@ -48,16 +48,16 @@
 												<article class="article2">
 
 
-													<h2>la vie de roi</h2>
+													<h2>{{basketItem.idArticle.noma}}</h2>
 													<div class="metadat">
-														<span class="date">Ajouté le: 01/02/2023 à 12:00
+														<span class="date">Ajouté le: {{basketItem.dateAjout|date('Y-m-d H:i:s')}}
 														</span>
 
 													</div>
 
 													<div style="font-weight:bold; margin-top: 6px;font-size: 19px;">
-														165x13 cm</div>
-													<div style="font-weight:bold; color:black; margin-left:72%; font-size: 21px;">Prix : 65 DT</div>
+														{{basketItem.idArticle.dimensiona}} cm</div>
+													<div style="font-weight:bold; color:black; margin-left:72%; font-size: 21px;">Prix : {{basketItem.idArticle.prixa}} DT</div>
 
 												</article>
 
@@ -75,7 +75,7 @@
                                       
                                      <article class="article1"> 
 						                <img class="img1" src={{asset("assets/images/imagePanier.png")}} alt="" width="180px" class="mt-3 mb-3"> 
-						                <h3 style="font-weight: bold;">Coût totale: 65 DT</h3>
+						                <h3 style="font-weight: bold;">Coût totale: {{totalPrice}} DT</h3>
 						                {# <h4 style=" color: black;">65 DT</h4> #}
 
                                         <h5 style="margin-top: 15px;">Mokhtar Hadded</h5>

@@ -4,32 +4,27 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Basket
  *
  * @ORM\Table(name="basket", indexes={@ORM\Index(name="id_article", columns={"id_article"}), @ORM\Index(name="id_client", columns={"id_client"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\BasketRepository")
  */
 class Basket
 {
+    
     /**
      * @var int
      *
-     * @ORM\Column(name="id_client", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idClient;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_article", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    private $idArticle;
+    private $id;
 
     /**
      * @var \DateTime
@@ -38,26 +33,30 @@ class Basket
      */
     private $dateAjout = 'CURRENT_TIMESTAMP';
 
-    public function getIdClient(): ?int
-    {
-        return $this->idClient;
-    }
+    /**
+     * @var \Articles
+     *
+     * @ORM\ManyToOne(targetEntity="Articles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_article", referencedColumnName="refA")
+     * })
+     */
+    private $idArticle;
 
-    public function getIdArticle(): ?int
-    {
-        return $this->idArticle;
-    }
-    public function setIdClient(int $idClient): self
-{
-    $this->idClient = $idClient;
-    return $this;
-}
+    /**
+     * @var \Utilisateur
+     *
+     * @ORM\ManyToOne(targetEntity="Utilisateur")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_client", referencedColumnName="idU")
+     * })
+     */
+    private $idClient;
 
-public function setIdArticle(int $idArticle): self
-{
-    $this->idArticle = $idArticle;
-    return $this;
-}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getDateAjout(): ?\DateTimeInterface
     {
@@ -71,5 +70,28 @@ public function setIdArticle(int $idArticle): self
         return $this;
     }
 
+    public function getIdArticle(): ?Articles
+    {
+        return $this->idArticle;
+    }
+
+    public function setIdArticle(?Articles $idArticle): self
+    {
+        $this->idArticle = $idArticle;
+
+        return $this;
+    }
+
+    public function getIdClient(): ?Utilisateur
+    {
+        return $this->idClient;
+    }
+
+    public function setIdClient(?Utilisateur $idClient): self
+    {
+        $this->idClient = $idClient;
+
+        return $this;
+    }
 
 }

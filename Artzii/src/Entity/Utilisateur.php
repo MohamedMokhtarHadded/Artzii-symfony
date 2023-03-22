@@ -113,7 +113,6 @@ class Utilisateur
         return $this;
     }
 
-
     public function getMdpu()
     {
         return $this->mdpu;
@@ -146,36 +145,6 @@ class Utilisateur
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Articles[]
-     */
-    public function getIdArticle(): Collection
-    {
-        return $this->idArticle;
-    }   
-
-    public function addIdArticle(Articles $idArticle): self
-    {
-        if (!$this->idArticle->contains($idArticle)) {
-            $this->idArticle[] = $idArticle;
-            $idArticle->addIdClient($this);
-        }
-
-        return $this;
-    }
-
-
-
-    public function removeIdArticle(Articles $idArticle): self
-    {
-        if ($this->idArticle->contains($idArticle)) {
-            $this->idArticle->removeElement($idArticle);
-            $idArticle->removeIdClient($this);
-        }
 
         return $this;
     }

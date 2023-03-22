@@ -6,16 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\ArticlesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\BasketService;
+use App\Entity\Basket;
 
 class ArticlesController extends AbstractController
 {
     #[Route('/articles', name: 'app_articles')]
-    public function goToArticles(ArticlesRepository $rep): Response
+    public function goToArticles(ArticlesRepository $rep, BasketService $basketService ): Response
     {
+
         $articles = $rep->findAll();
         return $this->render('article/articles.html.twig', [
             'articles' => $articles,
+
         ]);
+    }
+
+    #[Route('/addToBasket/{id}', name: 'app_addToBasket')]
+    public function addToBasket($id, BasketService $basketService): Response
+    {
+        $basketService->addToCart(32, $id);
+        return $this->redirectToRoute('app_articles');
     }
 
 

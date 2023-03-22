@@ -21,6 +21,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Repository\ArticlesRepository;
 use App\Repository\BasketRepository;
 
+
+use App\Service\BasketService;
+
 class TestController extends AbstractController
 {
     #[Route('/test', name: 'app_test')]
@@ -170,14 +173,36 @@ class TestController extends AbstractController
     // For example, you could output them to the browser
     $response = '';
     foreach ($baskets as $basket) {
-        $response .= $basket->getIdClient() . ' - ' . $basket->getIdArticle() . ' - ' . $basket->getDateAjout()->format('Y-m-d H:i:s') . '<br>';
+        $response .= $basket->getIdClient()->getNomu() . ' - ' . $basket->getIdArticle()->getNoma() . ' - ' . $basket->getDateAjout()->format('Y-m-d H:i:s') . '<br>';
     }
 
     // Return a response to indicate success
     return new Response($response);
 }
 
+#[Route('/bask2', name: 'app_bask2')]
+public function viewBasket(BasketRepository $basketRepository)
+{
+    $basketData = $basketRepository->findAll();
 
+    // dd ($basketData);
+
+    return $this->render('testingServices.html.twig', [
+         'basketData' => $basketData,
+     ]);
+}
+
+
+
+#[Route('/bask3', name: 'app_bask3')]
+public function viewBasket2( BasketService $basketService)
+{
+    $basketData = $basketService->getCartItems(32);
+
+    return $this->render('testingServices.html.twig', [
+         'basketData' => $basketData,
+     ]);
+}
 
 
 }
