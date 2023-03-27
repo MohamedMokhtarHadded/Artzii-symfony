@@ -6,13 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\BasketService;
-use App\Entity\Basket;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UtilisateurRepository;
 
 class ArticlesController extends AbstractController
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/articles', name: 'app_articles')]
-    public function goToArticles(ArticleRepository $rep ): Response
+    public function goToArticles(ArticleRepository $rep): Response
     {
 
         $articles = $rep->findAll();
@@ -22,29 +29,29 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-
-    #[Route('/article/ajouter', name: 'app_article_ajouter')]
-    public function goToAjouterArticle(): Response
+    #[Route('/articlesArtiste/{idArtiste}', name: 'app_articlesArtiste')]
+    public function goToArticlesArtiste($idArtiste, ArticleRepository $articleRep, UtilisateurRepository $userRep): Response
     {
-        return $this->render('article/ajouter.html.twig', [
-            'controller_name' => 'TestController',
+
+        $articles = $articleRep->findBy(['idartiste' => $userRep->find($idArtiste)]);
+
+        return $this->render('article/articlesArtiste.html.twig', [
+            'articles' => $articles,
         ]);
     }
 
-    #[Route('/article/modifier', name: 'app_article_modifier')]
-    public function goToModifierArticle(): Response
+    #[Route('/removeArticleArtiste/{idArticle}', name: 'app_removeArticleArtiste')]
+    public function removeArticle($idArticle, ArticleRepository $articleRep)
     {
-        return $this->render('article/modifier.html.twig', [
-            'controller_name' => 'TestController',
-        ]);
-    }
+        $article = $articleRep->find($idArticle);
+        $artiste = $article->getIdartiste()->getIdu();
+        if (!$article) {
+            throw new \Exception('Article not found');
+        }
 
-    #[Route('/article/supprimer', name: 'app_article_supprimer')]
-    public function goToSupprimerArticle(): Response
-    {
-        return $this->render('article/supprimer.html.twig', [
-            'controller_name' => 'TestController',
-        ]);
-    }
+        $this->entityManager->remove($article);
+        $this->entityManager->flush();
 
+        return $this->redirectToRoute('app_articlesArtiste', ['idArtiste' => $artiste]);
+    }
 }
