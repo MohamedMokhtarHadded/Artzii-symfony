@@ -3,6 +3,10 @@
 
 namespace App\Service;
 
+use App\Repository\ArticleRepository;
+use App\Repository\UtilisateurRepository;
+use App\Repository\BasketRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Basket;
 
@@ -15,31 +19,19 @@ class BasketService
         $this->entityManager = $entityManager;
     }
 
-     public function addToCart($userId, $articleId)
+     public function addToCart($userId, $articleId, UtilisateurRepository $userRep , ArticleRepository $articleRep)
      {
-         $panier = new Basket();
-         $panier->setIdClient($userId);
-         $panier->setIdArticle($articleId);
-         $panier->setDateAjout(new \DateTime());
+        $user = $userRep->find($userId);
+        $article = $articleRep->find($articleId);
 
-         $this->entityManager->persist($panier);
-         $this->entityManager->flush();
-     }
+        $panier = new Basket();
+        $panier->setIdClient($user);
+        $panier->setIdArticle($article);
+        $panier->setDateAjout(new \DateTime());
 
-    // public function removeFromCart($userId, $articleId)
-    // {
-    //     $panier = $this->entityManager->getRepository(Panier::class)->findOneBy([
-    //         'idUser' => $userId,
-    //         'idArticle' => $articleId
-    //     ]);
-
-    //     if (!$panier) {
-    //         throw new \Exception("Item not found in cart");
-    //     }
-
-    //     $this->entityManager->remove($panier);
-    //     $this->entityManager->flush();
-    // }
+        $this->entityManager->persist($panier);
+        $this->entityManager->flush();
+      }
 
     public function getCartItems($userId)
     {
@@ -49,4 +41,17 @@ class BasketService
 
         return $panier;
     }
+    
+    public function removeFromCart($basketId, BasketRepository $basketRep)
+{
+    $basket = $basketRep->find($basketId);
+
+    if (!$basket) {
+        throw new \Exception('Basket item not found');
+    }
+
+    $this->entityManager->remove($basket);
+    $this->entityManager->flush();
+}
+
 }

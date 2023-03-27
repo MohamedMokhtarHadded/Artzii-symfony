@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\ArticlesRepository;
+use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\BasketService;
@@ -12,7 +12,7 @@ use App\Entity\Basket;
 class ArticlesController extends AbstractController
 {
     #[Route('/articles', name: 'app_articles')]
-    public function goToArticles(ArticlesRepository $rep, BasketService $basketService ): Response
+    public function goToArticles(ArticleRepository $rep ): Response
     {
 
         $articles = $rep->findAll();
@@ -20,13 +20,6 @@ class ArticlesController extends AbstractController
             'articles' => $articles,
 
         ]);
-    }
-
-    #[Route('/addToBasket/{id}', name: 'app_addToBasket')]
-    public function addToBasket($id, BasketService $basketService): Response
-    {
-        $basketService->addToCart(32, $id);
-        return $this->redirectToRoute('app_articles');
     }
 
 

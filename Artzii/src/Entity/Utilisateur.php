@@ -69,7 +69,7 @@ class Utilisateur
      */
     public function __construct()
     {
-        $this->idArticle = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->idu = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getIdu(): ?int
