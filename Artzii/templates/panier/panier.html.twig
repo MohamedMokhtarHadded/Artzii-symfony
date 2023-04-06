@@ -37,7 +37,7 @@
                   {% for basketItem in basketData %}
 									<section class="basket-item" style="position: relative; transform: scale(0.95)">
 
-                    <a href="{{ path('app_removeFromBasket', {'idArticle': basketItem.id}) }}" >
+                    <a data-bs-toggle="modal" href="#myModal{{basketItem.id}}">
 										<img src="{{asset('assets/images/trash.png')}}"  alt="add to cart" width="45px" style="position: absolute; top: 0 ; right: 0; margin-top: 7px; margin-right: 7px;">
                     </a>
 
@@ -68,10 +68,39 @@
 											</div>
 										</div>
 									</section>
-                                {% endfor %}
-								</div>
-                              
 
+    <!-- DELETE CONFIRMATION MODAL -->
+
+		<div id="myModal{{basketItem.id}}" class="modal fade">
+			<div class="modal-dialog modal-confirm">
+				<div class="modal-content">
+					<div class="modal-header flex-column">
+						<div class="icon-box">
+							<i class="material-icons">&#xE5CD;</i>
+						</div>
+						<h4 class="modal-title w-100">Vous êtes sure?</h4>
+						
+					</div>
+					<div class="modal-body">
+						<p>Vous êtes sure vous voulez supprimer cet article de cette commande ?</p>
+					</div>
+					<div class="modal-footer justify-content-center">
+						<button id="cancelDeleteArticle{{basketItem.id}}" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+						<a href="{{ path('app_removeFromBasket', {'idArticle': basketItem.id}) }}">
+							<button id="confirm-delete-btn{{basketItem.id}}" type="button" class="btn btn-danger">Supprimer</button>          
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- DELETE CONFIRMATION MODAL -->
+
+
+
+    
+                 {% endfor %}
+								</div>
+                        
 								<div class="col-md-4" style="position: relative;">
 								<div class="vl"></div> 	
 
@@ -80,7 +109,6 @@
                                      <article class="article1"> 
 						                <img class="img1" src={{asset("assets/images/imagePanier.png")}} alt="" width="180px" class="mt-3 mb-3"> 
 						                <h3 style="font-weight: bold;">Coût totale: {{totalPrice}} DT</h3>
-						                {# <h4 style=" color: black;">65 DT</h4> #}
 
                                         <h5 style="margin-top: 15px;">Mokhtar Hadded</h5>
                                         <h6 style="margin-top: -7px;">Bizerte</h6>
@@ -131,6 +159,10 @@
 
 
     <style>
+    .modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+      }
         .card{
             min-height: 84vh;
         }
@@ -229,6 +261,30 @@
             margin-left: 10px;
             color: #FFA500;
         }
+
+        /* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
 
 
 

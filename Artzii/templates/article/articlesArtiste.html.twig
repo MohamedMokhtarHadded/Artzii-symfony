@@ -27,8 +27,7 @@
            
            <a href="{{ path('app_removeArticleArtiste', {'idArticle': article.getArtid()} ) }}">
            <img  src="{{asset('assets/images/trash.png')}}" alt="supprimer" width="52px" style="display: inline-block; margin-top: 10px; margin-left: 0px;">
-        </a>
-            
+          </a>
 
             <article class="article1"> 
                 <h2>{{article.getArtlib()}}</h2>
@@ -61,55 +60,48 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+       <form>
       <div class="modal-body">
-        <form>
+       
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label"> Nom de la piece:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            {{ form_label(form.artlib) }}
+            {{ form_widget(form.artlib) }}
           </div>
 
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Dimension:</label>
+          <div class="form-group">
+            {{ form_label(form.artdesc) }}
+            {{ form_widget(form.artdesc) }}
+          </div>
 
-                <div class="row">
+          <div class="form-group">
+            {{ form_label(form.artdispo) }}
+            {{ form_widget(form.artdispo) }}
+          </div>
 
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Hauteur">
-                    </div>
+          <div class="form-group">
+            {{ form_label(form.artimg) }}
+            {{ form_widget(form.artimg) }}
+          </div>
 
-                    <div class="col">
-                        <input type="number" class="form-control" placeholder="Largeur">
-                    </div>
-                    
-                </div>
+          <div class="form-group">
+            {{ form_label(form.artprix) }}
+            {{ form_widget(form.artprix) }}
+          </div>
 
-            </div>
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Prix:</label>
-                <input type="text" class="form-control" id="recipient-name">
-            </div>
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Catégorie:</label>
-                <input type="text" class="form-control" id="recipient-name">
-            </div>
-
-            <div class="form-group">
-                <label for="recipient-name" class="col-form-label">Image:</label>
-                <input type="file" class="form-control" id="recipient-name">
-            </div>
-
-            
-        </form>
+          <div class="form-group">
+           {{ form_row(form.catlib) }}
+          </div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary">Ajouter l'article</button>
+        {{ form_widget(form.Ajouter) }}
       </div>
+      </form>
     </div>
   </div>
-</div>
+
+
 
     {% endif %}
 
